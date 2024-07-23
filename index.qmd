@@ -56,7 +56,7 @@ IPGTT_median <- IPGTT_tidy_final %>%
   group_by(time_point, genotype, test_week) %>% 
   summarize(median_glucose = median(glucose_reading, na.rm = TRUE))
 
-ggplot(IPGTT_tidy_final %>% filter(test_week %in% 1:4, !is.na(glucose_reading )), aes(time_point, glucose_reading, color = genotype, group = mouseid)) + 
+p <- ggplot(IPGTT_tidy_final %>% filter(test_week %in% 1:4, !is.na(glucose_reading )), aes(time_point, glucose_reading, color = genotype, group = mouseid)) + 
   # geom_point() + 
   geom_line(alpha = 0.25) + 
   scale_color_manual(values = okabe_ito_palette) + 
@@ -67,7 +67,7 @@ ggplot(IPGTT_tidy_final %>% filter(test_week %in% 1:4, !is.na(glucose_reading ))
   facet_wrap(~ test_week, ncol = 4) + 
   theme(legend.position = "bottom") + 
   labs(title = "IPGTT trajectories overlaid within-genotype median", subtitle = "(First four weeks of testing)", x = "Test time (min)", y = "Blood glucose (mg/dL)")
+
+plotly::ggplotly(p)
+
 ```
-
-
-
